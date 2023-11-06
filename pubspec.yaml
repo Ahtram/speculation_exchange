@@ -44,6 +44,9 @@ dependencies:
   # Route management.
   go_router: ^12.1.0
 
+  # Icons.
+  material_design_icons_flutter: ^7.0.7296
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

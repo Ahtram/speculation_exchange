@@ -32,9 +32,43 @@ class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLay
     if (globalStuffsHasInitialized()) {
       //https://pub.dev/documentation/flutter_riverpod/latest/flutter_riverpod/ProviderScope-class.html
       //GoRouter: https://pub.dev/documentation/go_router/latest/index.html
+      // https://rydmike.com/flexcolorscheme/themesplayground-latest/
       return MaterialApp.router(
-        theme: FlexThemeData.light(scheme: FlexScheme.aquaBlue),
-        darkTheme: FlexThemeData.dark(scheme: FlexScheme.aquaBlue),
+        theme: FlexThemeData.light(
+          scheme: FlexScheme.brandBlue,
+          surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+          blendLevel: 7,
+          subThemesData: const FlexSubThemesData(
+            blendOnLevel: 10,
+            blendOnColors: false,
+            useTextTheme: true,
+            useM2StyleDividerInM3: true,
+            alignedDropdown: true,
+            useInputDecoratorThemeInDialogs: true,
+          ),
+          visualDensity: FlexColorScheme.comfortablePlatformDensity,
+          useMaterial3: true,
+          swapLegacyOnMaterial3: true,
+          // To use the Playground font, add GoogleFonts package and uncomment
+          // fontFamily: GoogleFonts.notoSans().fontFamily,
+        ),
+        darkTheme: FlexThemeData.dark(
+          scheme: FlexScheme.brandBlue,
+          surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+          blendLevel: 13,
+          subThemesData: const FlexSubThemesData(
+            blendOnLevel: 20,
+            useTextTheme: true,
+            useM2StyleDividerInM3: true,
+            alignedDropdown: true,
+            useInputDecoratorThemeInDialogs: true,
+          ),
+          visualDensity: FlexColorScheme.comfortablePlatformDensity,
+          useMaterial3: true,
+          swapLegacyOnMaterial3: true,
+          // To use the Playground font, add GoogleFonts package and uncomment
+          // fontFamily: GoogleFonts.notoSans().fontFamily,
+        ),
         // Use dark or light theme based on system setting.
         themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
