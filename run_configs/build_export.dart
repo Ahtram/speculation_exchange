@@ -13,7 +13,9 @@ Future buildExportWeb() async {
         'build',
         'web',
         '--base-href',
-        '/speculation_exchange/'
+        '/speculation_exchange/',
+        '--web-renderer',
+        'html'
       ],
       runInShell: true);
   await stdout.addStream(process.stdout);
