@@ -31,10 +31,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+
+  # https://pub.dev/packages/after_layout
+  after_layout: ^1.2.0
+
+  # Color themes!
+  flex_color_scheme: ^7.3.1
+
+  # Route management.
+  go_router: ^12.1.0
 
 dev_dependencies:
   flutter_test:
