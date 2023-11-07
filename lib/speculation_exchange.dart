@@ -20,6 +20,7 @@ class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLay
 
   @override
   void afterFirstLayout(BuildContext context) async {
+    WidgetsFlutterBinding.ensureInitialized();
     //Do some initialize stuffs here...
     await initializeGlobalStuffs();
 

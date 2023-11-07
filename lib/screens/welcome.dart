@@ -1,15 +1,17 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:speculation_exchange/dialogs/busy_dialog.dart';
 import 'package:speculation_exchange/dialogs/simple_alert.dart';
 import 'package:speculation_exchange/system/define.dart';
+import 'package:speculation_exchange/system/env/env.dart';
 import 'package:speculation_exchange/system/global.dart';
 import 'package:speculation_exchange/widgets/shared/page_frame.dart';
+import 'package:dospace/dospace.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});
@@ -28,6 +30,26 @@ class _WelcomeState extends State<Welcome> with AfterLayoutMixin {
     if (playerName != null) {
       _nameEditingController.text = playerName;
     }
+
+    //Test
+    _testDO();
+  }
+
+  Future _testDO() async {
+    //Test DO Space
+    Spaces spaces = Spaces(
+      region: 'open-dump.sgp1',
+      accessKey: Env.doSpaceAccessKey,
+      secretKey: Env.doSpaceSecret,
+    );
+
+    for (String name in await spaces.listAllBuckets()) {
+      log('bucket: $name');
+      Bucket bucket = spaces.bucket(name);
+      await for (BucketContent content in bucket.listContents(maxKeys: 3)) {
+        log('key: ${content.key}');
+      }
+    }
   }
 
   @override
@@ -39,7 +61,7 @@ class _WelcomeState extends State<Welcome> with AfterLayoutMixin {
           child: SizedBox(
               width: 128,
               height: 128,
-              child: Image.asset('images/bookmark.png')),
+              child: Image.asset('assets/images/bookmark.png')),
         ),
         Text(
           '歡迎!',

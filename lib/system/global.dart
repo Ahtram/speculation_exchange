@@ -10,6 +10,7 @@ initializeGlobalStuffs() async {
   _packageInfo = await PackageInfo.fromPlatform();
   _prefs = await SharedPreferences.getInstance();
 
+
   _hasInitialized = true;
 }
 

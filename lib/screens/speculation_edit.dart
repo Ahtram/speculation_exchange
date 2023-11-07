@@ -18,7 +18,7 @@ class _SpeculationEditState extends State<SpeculationEdit> {
         child: SizedBox(
             width: 128,
             height: 128,
-            child: Image.asset('images/checklist.png')),
+            child: Image.asset('assets/images/checklist.png')),
       ),
       Text(
         '編輯您的思辨問題',
