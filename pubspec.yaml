@@ -60,7 +60,7 @@ dependencies:
   riverpod_generator: ^2.3.5
 
   # For getting the version number.
-  package_info_plus: ^4.2.0
+#  package_info_plus: ^4.2.0
 
   # DO Space.
   dospace: ^0.13.15

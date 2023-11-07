@@ -113,10 +113,10 @@ class _WelcomeState extends State<Welcome> with AfterLayoutMixin {
         ElevatedButton(
             onPressed: _trySubmitUserName,
             child: const Text('Let\'s go!')),
-        const SizedBox(
-          height: 64,
-        ),
-        Text(version),
+        // const SizedBox(
+        //   height: 64,
+        // ),
+        // Text(version),
       ],
     );
   }
