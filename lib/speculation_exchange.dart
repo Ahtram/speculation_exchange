@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speculation_exchange/screens/launch.dart';
+import 'package:speculation_exchange/screens/speculation_edit.dart';
 import 'package:speculation_exchange/screens/welcome.dart';
 import 'package:speculation_exchange/system/global.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -93,6 +94,12 @@ class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLay
         path: '/Welcome',
         pageBuilder: (context, state) {
           return _instantFadeTransitionPage(const Welcome(), state);
+        },
+      ),
+      GoRoute(
+        path: '/SpeculationEdit',
+        pageBuilder: (context, state) {
+          return _instantFadeTransitionPage(const SpeculationEdit(), state);
         },
       ),
       //Add routes here...
