@@ -1,4 +1,3 @@
-
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,8 +15,8 @@ class SpeculationExchange extends StatefulWidget {
   State<SpeculationExchange> createState() => _SpeculationExchangeState();
 }
 
-class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLayoutMixin {
-
+class _SpeculationExchangeState extends State<SpeculationExchange>
+    with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -94,13 +93,20 @@ class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLay
       GoRoute(
         path: '/Welcome',
         pageBuilder: (context, state) {
-          return _instantFadeTransitionPage(const Welcome(), state);
+          return _instantFadeTransitionPage(
+              Welcome(
+                queryParameters: state.extra as Map<String, String>?,
+              ),
+              state);
         },
       ),
       GoRoute(
         path: '/SpeculationEdit',
         pageBuilder: (context, state) {
-          return _instantFadeTransitionPage(const SpeculationEdit(), state);
+          return _instantFadeTransitionPage(
+              SpeculationEdit(
+                  queryParameters: state.extra as Map<String, String>?),
+              state);
         },
       ),
       //Add routes here...

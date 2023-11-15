@@ -17,11 +17,9 @@ class _LaunchState extends State<Launch> with AfterLayoutMixin {
   //Check parameters...
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
-    //Check params...
-
     //This is for users.
-    //Go welcome.
-    context.go('/Welcome');
+    //Go welcome with parameters.
+    context.go('/Welcome', extra: Uri.base.queryParameters);
   }
 
   @override
