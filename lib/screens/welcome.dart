@@ -91,6 +91,11 @@ class _WelcomeState extends State<Welcome> with AfterLayoutMixin {
               Uint8List file = await nextCloudClient.webdav.get(PathUri.parse(path));
               String fileContent = utf8.decode(file);
               log ('[File Content]: $fileContent');
+
+              if (mounted) {
+                await showSimpleAlert(context, 'md found!', fileContent);
+              }
+
             }
 
           }
