@@ -4,9 +4,12 @@ part 'env.g.dart';
 
 @Envied()
 abstract class Env {
-  @EnviedField(varName: 'DO_SPACE_ACCESS_KEY', obfuscate: true)
-  static String doSpaceAccessKey = _Env.doSpaceAccessKey;
+  @EnviedField(varName: 'NEXTCLOUD_LOGIN_URL', obfuscate: true)
+  static String nextcloudLoginUrl = _Env.nextcloudLoginUrl;
 
-  @EnviedField(varName: 'DO_SPACE_SECRET', obfuscate: true)
-  static String doSpaceSecret = _Env.doSpaceSecret;
+  @EnviedField(varName: 'NEXTCLOUD_LOGIN_NAME', obfuscate: true)
+  static String nextcloudLoginName = _Env.nextcloudLoginName;
+
+  @EnviedField(varName: 'NEXTCLOUD_LOGIN_PASSWORD', obfuscate: true)
+  static String nextcloudLoginPassword = _Env.nextcloudLoginPassword;
 }

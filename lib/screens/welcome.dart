@@ -1,17 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nextcloud/nextcloud.dart';
 
 import 'package:speculation_exchange/dialogs/busy_dialog.dart';
 import 'package:speculation_exchange/dialogs/simple_alert.dart';
 import 'package:speculation_exchange/system/define.dart';
-import 'package:speculation_exchange/system/env/env.dart';
 import 'package:speculation_exchange/system/global.dart';
 import 'package:speculation_exchange/widgets/shared/page_frame.dart';
-import 'package:dospace/dospace.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({this.queryParameters, super.key});
@@ -43,25 +44,65 @@ class _WelcomeState extends State<Welcome> with AfterLayoutMixin {
 
     setState(() { });
 
-    //Test
-    _testDO();
+    _testNextCloud();
   }
 
-  Future _testDO() async {
-    log('[_testDO]');
-    //Test DO Space
-    Spaces spaces = Spaces(
-      region: 'open-dump.sgp1',
-      accessKey: Env.doSpaceAccessKey,
-      secretKey: Env.doSpaceSecret,
-    );
+  Future _testNextCloud() async {
+    log('[_testNextCloud]');
+    try {
+      NextcloudClient nextCloudClient = NextcloudClient(
+          Uri.parse('https://uni-team.xyz/nextCloud/'),
+          loginName: 'keeper',
+          password: 'storagekeeper');
 
-    for (String name in await spaces.listAllBuckets()) {
-      log('bucket: $name');
-      Bucket bucket = spaces.bucket(name);
-      await for (BucketContent content in bucket.listContents(maxKeys: 3)) {
-        log('key: ${content.key}');
+      String hrefPrefix = '/nextCloud/remote.php/webdav';
+
+      WebDavMultistatus webDavMultiStatuses = await nextCloudClient.webdav.propfind(PathUri.parse('/'));
+
+      for (WebDavResponse webDavResponse in webDavMultiStatuses.responses) {
+
+        if (webDavResponse.href != null) {
+          if (webDavResponse.href!.endsWith('/')) {
+            //This is a dir.
+            String path = webDavResponse.href!.replaceFirst(hrefPrefix, '');
+            log('[Directory]: $path');
+
+            //Try read the content of this file.
+            // WebDavMultistatus subWebDavMultiStatuses = await nextCloudClient.webdav.propfind(PathUri.parse(path));
+            // for (WebDavResponse subWebDavResponse in subWebDavMultiStatuses.responses) {
+            //   if (subWebDavResponse.href != null) {
+            //     if (subWebDavResponse.href!.endsWith('/')) {
+            //       String subPath = subWebDavResponse.href!.replaceFirst(hrefPrefix, '');
+            //       log('[Sub Directory]: $subPath');
+            //     } else {
+            //       String subPath = subWebDavResponse.href!.replaceFirst(hrefPrefix, '');
+            //       log('[Sub File]: $subPath | ${subWebDavResponse.toXmlElement()}');
+            //     }
+            //   }
+            // }
+
+          } else {
+            //This is a file.
+            String path = webDavResponse.href!.replaceFirst(hrefPrefix, '');
+            log('[File]: $path');
+
+            if (path.endsWith('.md')) {
+              //Test print the content.
+              Uint8List file = await nextCloudClient.webdav.get(PathUri.parse(path));
+              String fileContent = utf8.decode(file);
+              log ('[File Content]: $fileContent');
+            }
+
+          }
+        }
+        // for (WebDavPropstat webDavPropStat in webDavResponse.propstats) {
+        //   //Todo: WTF is there anything worth here???
+        //   // log('[webDavPropStat.status]: ${webDavPropStat.status}');
+        //   log(webDavPropStat.prop.toXmlElement().toString());
+        // }
       }
+    } catch (e) {
+      log(e.toString());
     }
   }
 

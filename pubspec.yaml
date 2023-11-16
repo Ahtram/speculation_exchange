@@ -51,21 +51,30 @@ dependencies:
   envied_generator: ^0.5.1
 
   # Route management.
-  go_router: ^12.1.0
+  go_router: ^12.1.1
 
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.2.2
 
   # riverpod.
-  flutter_riverpod: ^2.4.5
-  riverpod_annotation: ^2.3.0
-  riverpod_generator: ^2.3.5
+  flutter_riverpod: ^2.4.6
+  riverpod_annotation: ^2.3.1
+  riverpod_generator: ^2.3.6
 
   # For getting the version number.
 #  package_info_plus: ^4.2.0
 
-  # DO Space.
-  dospace: ^0.13.15
+  # Experiment NextCloud
+  nextcloud:
+    git:
+      url: https://github.com/nextcloud/neon
+      path: packages/nextcloud
+
+dependency_overrides:
+  dynamite_runtime:
+    git:
+      url: https://github.com/nextcloud/neon
+      path: packages/dynamite/dynamite_runtime
 
 dev_dependencies:
   flutter_test:

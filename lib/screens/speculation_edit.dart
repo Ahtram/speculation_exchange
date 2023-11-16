@@ -1,9 +1,15 @@
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:speculation_exchange/system/env/env.dart';
 import 'package:speculation_exchange/widgets/shared/page_frame.dart';
+
+import 'package:nextcloud/nextcloud.dart';
 
 class SpeculationEdit extends StatefulWidget {
   const SpeculationEdit({this.queryParameters, super.key});
@@ -31,7 +37,44 @@ class _SpeculationEditState extends State<SpeculationEdit> with AfterLayoutMixin
     }
 
     setState(() { });
+
+    //Test
+    // _testNextCloud();
+    // _testDO();
   }
+
+
+
+  // Future<void> _configureAmplify() async {
+  //   try {
+  //     final auth = AmplifyAuthCognito();
+  //     final storage = AmplifyStorageS3();
+  //     await Amplify.addPlugins([auth, storage]);
+  //
+  //     // call Amplify.configure to use the initialized categories in your app
+  //     await Amplify.configure(amplifyconfig);
+  //   } on Exception catch (e) {
+  //     safePrint('An error occurred configuring Amplify: $e');
+  //   }
+  // }
+
+  // Future _testDO() async {
+  //   log('[_testDO]');
+  //   //Test DO Space
+  //   Spaces spaces = Spaces(
+  //     region: 'open-dump.sgp1',
+  //     accessKey: Env.doSpaceAccessKey,
+  //     secretKey: Env.doSpaceSecret,
+  //   );
+  //
+  //   for (String name in await spaces.listAllBuckets()) {
+  //     log('bucket: $name');
+  //     Bucket bucket = spaces.bucket(name);
+  //     await for (BucketContent content in bucket.listContents(maxKeys: 3)) {
+  //       log('key: ${content.key}');
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
