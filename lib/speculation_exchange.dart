@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speculation_exchange/screens/launch.dart';
 import 'package:speculation_exchange/screens/speculation_edit.dart';
+import 'package:speculation_exchange/screens/speculation_preview_browser.dart';
 import 'package:speculation_exchange/screens/welcome.dart';
 import 'package:speculation_exchange/system/global.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -15,8 +16,7 @@ class SpeculationExchange extends StatefulWidget {
   State<SpeculationExchange> createState() => _SpeculationExchangeState();
 }
 
-class _SpeculationExchangeState extends State<SpeculationExchange>
-    with AfterLayoutMixin {
+class _SpeculationExchangeState extends State<SpeculationExchange> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -103,18 +103,26 @@ class _SpeculationExchangeState extends State<SpeculationExchange>
       GoRoute(
         path: '/SpeculationEdit',
         pageBuilder: (context, state) {
-          return _instantFadeTransitionPage(
-              SpeculationEdit(
-                  queryParameters: state.extra as Map<String, String>?),
-              state);
+          return MaterialPage(
+            child: SpeculationEdit(queryParameters: state.extra as Map<String, String>?),
+            key: state.pageKey,
+          );
+        },
+      ),
+      GoRoute(
+        path: '/SpeculationPreviewBrowser',
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            child: SpeculationPreviewBrowser(queryParameters: state.extra as Map<String, String>?),
+            key: state.pageKey,
+          );
         },
       ),
       //Add routes here...
     ],
   );
 
-  static Page<dynamic> _instantFadeTransitionPage(
-      Widget child, GoRouterState state) {
+  static Page<dynamic> _instantFadeTransitionPage(Widget child, GoRouterState state) {
     return CustomTransitionPage(
       key: state.pageKey,
       // This could do instant transition.
@@ -126,10 +134,7 @@ class _SpeculationExchangeState extends State<SpeculationExchange>
   }
 
   static Widget _fadeTransitionBuilder(
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
+      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
     // Change the opacity of the screen using a Curve based on the the animation's value
     return FadeTransition(
       opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
