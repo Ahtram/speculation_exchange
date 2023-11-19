@@ -244,7 +244,7 @@ class _SpeculationEditState extends State<SpeculationEdit> with AfterLayoutMixin
 
       TextButton(
           onPressed: _openPreviewBrowser,
-          child: const Text('查看當前收集到的問題')),
+          child: const Text('查看活動內容')),
 
     ]);
   }
